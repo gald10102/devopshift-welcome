@@ -1,18 +1,22 @@
-variable "mock_ip" {
-  default = ""
+provider "aws" {
+  region = var.region
 }
 
-resource "null_resource" "check_public_ip" {
-     provisioner "local-exec" {
-     command = <<EOT
-      if [ -z "${var.mock_ip}" ]; then
-        echo "ERROR: Public IP address was not assigned." >&2
-        exit 1
-      fi
-    EOT
+variable "region" {
+  default = "us-east-1"
+}
+
+data "aws_ami" "find_yaniv_ami" {
+  owners = [ "self" ]
+  filter {
+    name = "name"
+    values = ["terraform-workshop-image-do-not-delete"]
   }
 
-  //depends_on = [aws_instance.vm]
 }
 
-  
+
+output "ami-" {
+  value = data.aws_ami.find_yaniv_ami.id
+}
+
