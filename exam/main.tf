@@ -16,29 +16,3 @@ output "printing_lb_dns" {
   value = "LoadBalancer DNS is: ${module.creating_ALB_and_Scaling_Group.alb_dns_name}"
 }
 
-# module "create_first_ec2" {
-#   source = "./modules/ec2"
-#   name = "gal1"
-#   set_public_ip = true
-#   instance_type = "t2.micro"
-#   subnet_id = module.vpc_and_ec2.get_subnet_id
-#   sg_id = module.vpc_and_ec2.get_sg_id
-# }
-
-# module "create_second_ec2" {
-#   source = "./modules/ec2"
-#   name = "gal2"
-#   set_public_ip = true
-#   instance_type = "t2.micro"
-#   subnet_id = module.vpc_and_ec2.get_subnet_id
-#   sg_id = module.vpc_and_ec2.get_sg_id
-# }
-
-# module "create_third_ec2" {
-#   source = "./modules/ec2"
-#   name = "gal3"
-#   set_public_ip = true
-#   instance_type = "t2.micro"
-#   subnet_id = module.vpc_and_ec2.get_subnet_id
-#   sg_id = module.vpc_and_ec2.get_sg_id
-# }

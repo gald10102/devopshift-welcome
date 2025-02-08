@@ -10,7 +10,7 @@ variable "vpc_id" {
   type = string
 }
 
-# Application Load Balancer
+
 resource "aws_lb" "create_lb" {
   name               = "gal2-lb"
   internal           = false
@@ -24,7 +24,6 @@ resource "aws_lb" "create_lb" {
   }
 }
 
-# Target Group
 resource "aws_lb_target_group" "create_target_group" {
   name     = "gal-target-group"
   port     = 80
@@ -45,7 +44,6 @@ resource "aws_lb_target_group" "create_target_group" {
   }
 }
 
-# Create Launch Template (REPLACES Launch Configuration)
 resource "aws_launch_template" "gal_launch_template" {
   name          = "gal-launch-template"
   image_id      = "ami-0e1bed4f06a3b463d"
@@ -54,17 +52,8 @@ resource "aws_launch_template" "gal_launch_template" {
   network_interfaces {
     security_groups = [var.sg]
   }
-
-  user_data = base64encode(<<-EOF
-              #!/bin/bash
-              echo "Hello World" > /var/www/html/index.html
-              sudo systemctl start httpd
-              sudo systemctl enable httpd
-              EOF
-  )
 }
 
-# Auto Scaling Group using Launch Template
 resource "aws_autoscaling_group" "app_asg" {
   desired_capacity     = 1
   min_size             = 1
