@@ -1,0 +1,13 @@
+Task 5 answers:
+    The causes for "Invalid provider configuration" can be:
+        1. Missing data or incorrect AWS provider - i would fix that by checking the provider information.
+        2. Incorrect AWS region for example if you use us-east-1 and the region set to us-west-1 - i would fix that by checking if i use the right region.
+        3. Missing authentication for example when a user doent have permission from IAM - i would make sure that i have the right permissions for using the provider.
+    Incorrect security group rules:
+        1. invalid CIDR blocks for example synax mistake or wrong addresses range (collission) - i would fix that by degining right the addresses spread and make sure the syntax is right.
+        2. missing required ports for example ssh or http - i would fix that by ensuring the right ports are open and in the right tab (inbound or outbound).
+        3. when one rule allow something and one rule denies it can cause a conflict error - i would fix that by ensuring there are no conflicts when i write the sg settings.
+    Missing IAM permissions for Terraform to create resources:
+        1. user lacks permissions to create resources 
+        2. Missing IAM role for EC2 instances.
+    I will fix that by making sure that i have the right permissions for the actions.
