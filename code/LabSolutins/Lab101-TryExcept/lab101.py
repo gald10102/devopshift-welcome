@@ -13,3 +13,5 @@ if server_list.__contains__(user_input):
         print("Server is up")
     else:
         print("Server is down")
+
+
