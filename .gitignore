@@ -46,3 +46,6 @@ terraform.rckeys/
 
 #ignore log flies
 *.log
+
+#ingonre servers.txt file
+servers.txt
