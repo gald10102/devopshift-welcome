@@ -64,9 +64,9 @@ pipeline {
             }
         }
 
-        stages {
-            stage ('Adding artifact'){
-                archiveArtifacts artifacts: '.', allowEmptyArchive: true
+        stage('Archive Artifacts') {
+            steps {
+                archiveArtifacts artifacts: 'build.log', allowEmptyArchive: true
             }
         }
 
