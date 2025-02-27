@@ -22,7 +22,8 @@ pipeline {
         stage('Archive Artifacts') {
             steps {
                 script {
-                sh 'echo "User chose the following: ${env.USER_CHOICE}" > userchoise.log'
+                def choice = env.USER_CHOICE
+                sh 'echo "User chose the following: ${choise}" > userchoise.log'
                 }
             archiveArtifacts artifacts: 'userchoise.log', allowEmptyArchive: true
             }
