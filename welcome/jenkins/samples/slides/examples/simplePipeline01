@@ -7,7 +7,7 @@ pipeline {
         FLASK_APP = 'run.py'
         FLASK_ENV = 'development'
     }
-
+    
     stages {
         stage('Clone Flask Project') {
             steps {
@@ -63,6 +63,12 @@ pipeline {
                 }
             }
         }
+
+        stages {
+        stage ('Adding artifact'){
+            archiveArtifacts artifacts: '.', allowEmptyArchive: true
+        }
+    }
 
         stage('Verify Application') {
             steps {
