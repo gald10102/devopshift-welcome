@@ -19,16 +19,16 @@ pipeline {
                 }
             }
         } 
-        stage('Archive Artifacts') {
-            steps {
-                script {
-                def choice = env.USER_CHOICE
-                 echo "User selected: ${env.USER_CHOICE}"
-                sh 'echo "User chose the following: ${choice}" > userchoise.log'
-                }
-            archiveArtifacts artifacts: 'userchoise.log', allowEmptyArchive: true
-            }
+     stage('Archive Artifacts') {
+    steps {
+        script {
+            def choice = env.USER_CHOICE
+            echo "User selected: ${choice}"
+            sh """echo "User chose the following: ${choice}" > userchoise.log"""
         }
+        archiveArtifacts artifacts: 'userchoise.log', allowEmptyArchive: true
+    }
+}
 
 
         stage('Continue the pipeline') {
