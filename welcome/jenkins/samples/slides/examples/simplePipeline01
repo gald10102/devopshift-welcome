@@ -66,7 +66,9 @@ pipeline {
 
         stage('Archive Artifacts') {
             steps {
-                echo "testing logging " > test.log
+                script {
+                    sh 'echo "testing logging " > test.log'
+                }
                 archiveArtifacts artifacts: 'test.log', allowEmptyArchive: true
             }
         }
