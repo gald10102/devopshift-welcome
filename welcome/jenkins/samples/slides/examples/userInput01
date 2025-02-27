@@ -18,7 +18,18 @@ pipeline {
                     env.USER_CHOICE = userInput
                 }
             }
+        } 
+     stage('Archive Artifacts') {
+    steps {
+        script {
+            def choice = env.USER_CHOICE
+            echo "User selected: ${choice}"
+            sh """echo "User chose the following: ${choice}" > userchoise.log"""
         }
+        archiveArtifacts artifacts: 'userchoise.log', allowEmptyArchive: true
+    }
+}
+
 
         stage('Continue the pipeline') {
             // Run this stage ONLY! if the user chooses 'Proceed'
