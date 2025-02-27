@@ -24,7 +24,7 @@ pipeline {
                 script {
                 def choice = env.USER_CHOICE
                  echo "User selected: ${env.USER_CHOICE}"
-                sh 'echo "User chose the following: ${choise}" > userchoise.log'
+                sh 'echo "User chose the following: ${choice}" > userchoise.log'
                 }
             archiveArtifacts artifacts: 'userchoise.log', allowEmptyArchive: true
             }
