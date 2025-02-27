@@ -53,7 +53,7 @@ pipeline {
                         }
                     }
                 }
-                stage('REDIS TESTING') {
+                stage('REDIS TESTING') { // jjjj
                     steps {
                         echo "Hello World"
                          sh '''#!/bin/bash
