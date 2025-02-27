@@ -16,10 +16,18 @@ pipeline {
                                          parameters: [choice(name: 'Proceed', choices: 'Proceed\nAbort', description: 'Choose an option')]
                     // Set a variable based on user input
                     env.USER_CHOICE = userInput
-                    echo "Fasfsa"
                 }
             }
-        } //joojojo
+        } 
+        stage('Archive Artifacts') {
+            steps {
+                script {
+                sh 'echo "User chose the following: ${env.USER_CHOICE}" > userchoise.log'
+                }
+            archiveArtifacts artifacts: 'userchoise.log', allowEmptyArchive: true
+            }
+        }
+
 
         stage('Continue the pipeline') {
             // Run this stage ONLY! if the user chooses 'Proceed'
