@@ -65,10 +65,10 @@ pipeline {
         }
 
         stages {
-        stage ('Adding artifact'){
-            archiveArtifacts artifacts: '.', allowEmptyArchive: true
+            stage ('Adding artifact'){
+                archiveArtifacts artifacts: '.', allowEmptyArchive: true
+            }
         }
-    }
 
         stage('Verify Application') {
             steps {
