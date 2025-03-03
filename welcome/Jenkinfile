@@ -29,8 +29,6 @@ pipeline {
         
         stage('Install Dependencies') {
             steps {
-                echo "#########################reqfile###########################################"
-                sh 'ls .'
                 sh 'pip install -r requirements.txt'
             }
         }
