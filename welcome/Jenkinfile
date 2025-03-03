@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                #changed
+                //changed
                 git branch: 'argocd-workshop', url: 'https://github.com/gald10102/devopshift-welcome.git'
             }
         }
