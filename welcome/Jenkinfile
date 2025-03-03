@@ -5,7 +5,7 @@ pipeline {
         }
     }
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('docker-hub-creds')
+        DOCKERHUB_CREDENTIALS = credentials('docker-hub-creds') #added cred
         DOCKER_REGISTRY = 'yanivomc'
         REPO_NAME = 'fe-exam'  // Change to 'be-exam' for backend pipeline
         IMAGE_TAG = "${env.BUILD_NUMBER}"
@@ -14,7 +14,8 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/your-org/your-repo.git'
+                #changed
+                git branch: 'argocd-workshop', url: 'https://github.com/gald10102/devopshift-welcome.git'
             }
         }
         
