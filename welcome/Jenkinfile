@@ -16,7 +16,7 @@ pipeline {
             steps {
                 //changed
                 git branch: 'argocd-workshop', url: 'https://github.com/gald10102/devopshift-welcome.git'
-                sh 'ls welcome/'
+                sh 'cd welcome/'
                 sh 'pwd'
                 sh 'ls -lah'
             }
