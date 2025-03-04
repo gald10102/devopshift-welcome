@@ -21,7 +21,7 @@ pipeline {
             steps {
                 //running flake on fe 
                 sh """
-                    cd exam-code/docker/fe
+                    cd exam-code/docker/fe/src
                     ls -l
                 """
                 //sh 'cd exam-code/docker/fe'
