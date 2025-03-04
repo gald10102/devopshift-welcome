@@ -73,7 +73,7 @@ pipeline {
                     docker-compose down
                     docker-compose up -d
                     sleep 20  # Allow services to start
-                    curl -f http://localhost:5004 || exit 1  # Adjust for backend if needed
+                    curl -f http://localhost:5002 || exit 1  # Adjust for backend if needed
                     docker-compose down
                 """
             }
