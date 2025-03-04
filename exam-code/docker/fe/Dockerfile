@@ -11,4 +11,4 @@ COPY ./src .
 CMD ["python", "main.py"]
 
 #was 5002
-EXPOSE 5010 
+EXPOSE 5020 
