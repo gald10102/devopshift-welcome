@@ -11,4 +11,4 @@ COPY ./src .
 CMD ["python", "mainfe.py"]
 
 #was 5002
-EXPOSE 5020 
+EXPOSE 5002 
