@@ -20,8 +20,12 @@ pipeline {
         stage('Lint & Security Scan') {
             steps {
                 //running flake on fe 
-                sh 'cd exam-code/docker/fe'
-                sh 'ls -l'
+                sh """
+                    cd exam-code/docker/fe
+                    ls -l
+                """
+                //sh 'cd exam-code/docker/fe'
+                //sh 'ls -l'
                //flake8 /
             }
         }
