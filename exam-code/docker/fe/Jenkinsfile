@@ -34,6 +34,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh """
+                    cd exam-code/docker/fe
                     ls -l
                     pip install -r requirements.txt
                 """
