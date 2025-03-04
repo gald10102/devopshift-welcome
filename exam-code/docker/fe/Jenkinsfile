@@ -19,6 +19,11 @@ pipeline {
             }
         } //end of clone stage
         stage('Lint & Security Scan') {
+            agent {
+                docker {
+                    image 'python:3.10'
+                }
+            }
             steps {
                 //running flake on fe 
                 sh """
