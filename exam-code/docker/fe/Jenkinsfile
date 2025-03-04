@@ -17,6 +17,12 @@ pipeline {
                 git branch: 'workshop/argo-jenkins-exam', url: 'https://github.com/gald10102/devopshift-welcome.git'
             }
         } //end of clone stage
-        
+        stage('Lint & Security Scan') {
+            steps {
+                //running flake on fe 
+                sh 'pwd'
+               //flake8 .
+            }
+        }
     }
 }
