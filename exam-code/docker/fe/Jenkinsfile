@@ -70,6 +70,7 @@ pipeline {
                     chmod +x /usr/local/bin/docker-compose
                     cd exam-code/docker
                     ls -l
+                    docker-compose down
                     docker-compose up -d
                     sleep 20  # Allow services to start
                     curl -f http://localhost:5002 || exit 1  # Adjust for backend if needed
