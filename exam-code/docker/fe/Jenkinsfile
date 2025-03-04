@@ -43,7 +43,8 @@ pipeline {
             steps {
                 sh """
                     cd exam-code/docker/fe
-                    docker version
+                    apt-get update
+                    apt-get install -y docker.io
                     docker build -t $DOCKER_REGISTRY/$REPO_NAME:$IMAGE_TAG .
                     docker tag $DOCKER_REGISTRY/$REPO_NAME:$IMAGE_TAG $DOCKER_REGISTRY/$REPO_NAME:latest
                 """
