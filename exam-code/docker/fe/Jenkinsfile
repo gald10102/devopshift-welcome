@@ -66,7 +66,7 @@ pipeline {
                     cd exam-code/docker
                     ls -l
                     docker-compose up -d
-                    sleep 10  # Allow services to start
+                    sleep 15  # Allow services to start
                     curl -f http://localhost:5002 || exit 1  # Adjust for backend if needed
                     docker-compose down
                 """
