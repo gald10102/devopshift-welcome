@@ -22,7 +22,8 @@ pipeline {
                 //running flake on fe 
                 sh """
                     cd exam-code/docker/fe/src
-                    ls -l
+                    flake8 .
+                    bandit -r .
                 """
                 //sh 'cd exam-code/docker/fe'
                 //sh 'ls -l'
