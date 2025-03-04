@@ -1,10 +1,10 @@
 pipeline {
-    /* agent {
+    agent {
         docker {
             image 'python:3.10'
         }
-    } */
-    agent any
+    } 
+    //agent any
     environment {
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-creds')
         DOCKER_REGISTRY = 'gald10102'
@@ -41,6 +41,7 @@ pipeline {
             }
         }//end of install dependencies stage
         stage('Build Docker Image') {
+            agent any
             steps {
                 sh """
                     cd exam-code/docker/fe
@@ -60,6 +61,7 @@ pipeline {
             steps {
                 sh """
                     cd exam-code/docker
+                    ls -l
                     docker-compose up -d
                     sleep 10  # Allow services to start
                     curl -f http://localhost:5002 || exit 1  # Adjust for backend if needed
