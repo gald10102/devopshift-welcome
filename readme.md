@@ -1,7 +1,9 @@
 Notes:
 1. There are 2 Jenkinfiles - one at fe and the other at be folders.
 2. I used a mock for testing the curl
-3. At the argocd part - I used my images from the pipelines
+3. I defined creds in jenkins and the id is "docker-hub-creds"
+4. At the argocd part - I used my images from the pipelines
+   
    
 FE (called exampipe1) – pipeline 
 ![image](https://github.com/user-attachments/assets/74cf3ec3-1b93-4abc-a976-f012ded9b2c6)
