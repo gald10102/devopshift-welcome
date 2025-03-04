@@ -51,6 +51,7 @@ pipeline {
             }
         }//end of build docker image stage
         stage('Run Tests in Container') {
+            agent any
             steps {
                 sh """
                     docker run --rm $DOCKER_REGISTRY/$REPO_NAME:$BUILD_NUMBER pytest tests/
@@ -58,6 +59,7 @@ pipeline {
             }
         }//end of Run Tests in Container stage
         stage('Integration Test with Docker Compose') {
+            agent any
             steps {
                 sh """
                     cd exam-code/docker
