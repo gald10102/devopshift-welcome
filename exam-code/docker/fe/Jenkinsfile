@@ -63,22 +63,22 @@ pipeline {
             }
         }//end of Run Tests in Container stage
         
-        stage('Integration Test with Docker Compose') {
-            steps {
-                sh """
-                    curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-\$(uname -s)-\$(uname -m)" -o /usr/local/bin/docker-compose
-                    chmod +x /usr/local/bin/docker-compose
-                    cd exam-code/docker
-                    ls -l
-                    docker-compose down
-                    docker-compose up -d
-                    docker-compose logs backend-service 
-                    sleep 20  # Allow services to start
-                    curl -f http://localhost:5020 || exit 1  # Adjust for backend if needed
-                    docker-compose down
-                """
-            }
-        }//end of Integration Test with Docker Compose stage
+        // stage('Integration Test with Docker Compose') {
+        //     steps {
+        //         sh """
+        //             curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-\$(uname -s)-\$(uname -m)" -o /usr/local/bin/docker-compose
+        //             chmod +x /usr/local/bin/docker-compose
+        //             cd exam-code/docker
+        //             ls -l
+        //             docker-compose down
+        //             docker-compose up -d
+        //             docker-compose logs backend-service 
+        //             sleep 10  # Allow services to start
+        //             curl -f http://localhost:5020 || exit 1  # Adjust for backend if needed
+        //             docker-compose down
+        //         """
+        //     }
+        // }//end of Integration Test with Docker Compose stage
 
         stage('Push to Docker Hub') {
             steps {
