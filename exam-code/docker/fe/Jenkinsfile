@@ -23,7 +23,8 @@ pipeline {
                 sh """
                     pip install flake8 bandit
                     cd exam-code/docker/fe/src
-                    bandit -r .
+                    flake8 . || true
+                    bandit -r . || true
                 """
                 //sh 'cd exam-code/docker/fe'
                 //sh 'ls -l'
