@@ -18,19 +18,28 @@ pipeline {
                 git branch: 'workshop/argo-jenkins-exam', url: 'https://github.com/gald10102/devopshift-welcome.git'
             }
         } //end of clone stage
-        stage('Lint & Security Scan') {
-            steps {
-                //running flake on fe 
-                sh """
-                    pip install flake8 bandit
-                    cd exam-code/docker/fe/src
-                    flake8 . || true
-                    bandit -r . || true
-                """
-                //sh 'cd exam-code/docker/fe'
-                //sh 'ls -l'
-               //flake8 /
-            }
+  
+    stage('Lint & Security Scan') {
+                parallel {
+                    stage('Flake8 Linting') {
+                        steps {
+                            sh """
+                                pip install flake8
+                                cd exam-code/docker/fe/src
+                                flake8 . || true
+                            """
+                        }
+                    }
+                stage('Bandit Security Scan') {
+                    steps {
+                        sh """
+                            pip install bandit
+                            cd exam-code/docker/fe/src
+                            bandit -r . || true
+                        """
+                    }
+                }
+    }
         }//end of lint&security stage
         stage('Install Dependencies') {
             steps {
