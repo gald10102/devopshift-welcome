@@ -48,7 +48,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 sh """
-                    cd exam-code/docker/be/src
+                    cd exam-code/docker/be
                     docker build -t $DOCKER_REGISTRY/$REPO_NAME:$IMAGE_TAG .
                     docker tag $DOCKER_REGISTRY/$REPO_NAME:$IMAGE_TAG $DOCKER_REGISTRY/$REPO_NAME:latest
                 """
@@ -58,7 +58,7 @@ pipeline {
         stage('Run Tests in Container') {
             steps {
                 sh """
-                    cd exam-code/docker/be 
+                    cd exam-code/docker/be/src
                     ls -l
                     docker run --rm $DOCKER_REGISTRY/$REPO_NAME:$BUILD_NUMBER pytest tests/
                 """
