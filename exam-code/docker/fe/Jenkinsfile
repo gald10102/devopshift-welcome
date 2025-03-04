@@ -21,6 +21,7 @@ pipeline {
             steps {
                 //running flake on fe 
                 sh """
+                    pip install flake8 bandit
                     cd exam-code/docker/fe/src
                     flake8 .
                     bandit -r .
