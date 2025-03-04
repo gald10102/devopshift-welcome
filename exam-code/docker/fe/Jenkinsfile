@@ -56,6 +56,16 @@ pipeline {
                 """
             }
         }//end of Run Tests in Container stage
-        
+        stage('Integration Test with Docker Compose') {
+            steps {
+                sh """
+                    cd exam-code/docker
+                    docker-compose up -d
+                    sleep 10  # Allow services to start
+                    curl -f http://localhost:5002 || exit 1  # Adjust for backend if needed
+                    docker-compose down
+                """
+            }
+        }//end of Integration Test with Docker Compose stage
     }
 }
