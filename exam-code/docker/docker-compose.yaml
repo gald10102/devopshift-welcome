@@ -3,7 +3,7 @@ services:
     build: ./fe
     image: "yanivomc/fe-exam:latest"
     ports:
-      - "5020:5002"
+      - "5002:5002"
     depends_on:
       - backend-service
     networks:
