@@ -1,16 +1,10 @@
 pipeline {
-    /*agent {
-        docker {
-            image 'python:3.10'
-        }
-    } */
     agent any
     environment {
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-creds')
         DOCKER_REGISTRY = 'gald10102'
         REPO_NAME = 'fe-exam'  // Change to 'be-exam' for backend pipeline
         IMAGE_TAG = "${env.BUILD_NUMBER}"
-        
     }
     stages {
         stage('Clone Repository') {
@@ -19,17 +13,17 @@ pipeline {
             }
         } //end of clone stage
   
-    stage('Lint & Security Scan') {
-                parallel {
-                    stage('Flake8 Linting') {
-                        steps {
-                            sh """
-                                pip install flake8
-                                cd exam-code/docker/fe/src
-                                flake8 . || true
-                            """
-                        }
+        stage('Lint & Security Scan') {
+            parallel {
+                stage('Flake8 Linting') {
+                    steps {
+                        sh """
+                            pip install flake8
+                            cd exam-code/docker/fe/src
+                            flake8 . || true
+                        """
                     }
+                }
                 stage('Bandit Security Scan') {
                     steps {
                         sh """
@@ -39,8 +33,9 @@ pipeline {
                         """
                     }
                 }
-    }
+            }
         }//end of lint&security stage
+        
         stage('Install Dependencies') {
             steps {
                 sh """
@@ -49,8 +44,8 @@ pipeline {
                 """
             }
         }//end of install dependencies stage
+        
         stage('Build Docker Image') {
-            //agent any
             steps {
                 sh """
                     cd exam-code/docker/fe
@@ -59,14 +54,15 @@ pipeline {
                 """
             }
         }//end of build docker image stage
+        
         stage('Run Tests in Container') {
-              //agent any
             steps {
                 sh """
                     docker run --rm $DOCKER_REGISTRY/$REPO_NAME:$BUILD_NUMBER pytest tests/
                 """
             }
         }//end of Run Tests in Container stage
+        
         stage('Integration Test with Docker Compose') {
             steps {
                 sh """
