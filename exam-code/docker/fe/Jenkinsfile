@@ -20,8 +20,8 @@ pipeline {
         stage('Lint & Security Scan') {
             steps {
                 //running flake on fe 
-                sh 'pwd'
-               //flake8 .
+                sh 'ls -l'
+               //flake8 /
             }
         }
     }
