@@ -58,6 +58,7 @@ pipeline {
         stage('Run Tests in Container') {
             steps {
                 sh """
+                    ls -l
                     docker run --rm $DOCKER_REGISTRY/$REPO_NAME:$BUILD_NUMBER pytest tests/
                 """
             }
