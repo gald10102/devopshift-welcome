@@ -1,0 +1,93 @@
+pipeline {
+    agent any
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('docker-hub-creds')
+        DOCKER_REGISTRY = 'gald10102'
+        REPO_NAME = 'be-exam'  // Change to 'be-exam' for backend pipeline
+        IMAGE_TAG = "${env.BUILD_NUMBER}"
+    }
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git branch: 'workshop/argo-jenkins-exam', url: 'https://github.com/gald10102/devopshift-welcome.git'
+            }
+        } //end of clone stage
+  
+        stage('Lint & Security Scan') {
+            parallel {
+                stage('Flake8 Linting') {
+                    steps {
+                        sh """
+                            pip install flake8
+                            cd exam-code/docker/be/src
+                            flake8 . || true
+                        """
+                    }
+                }
+                stage('Bandit Security Scan') {
+                    steps {
+                        sh """
+                            pip install bandit
+                            cd exam-code/docker/be/src
+                            bandit -r . || true
+                        """
+                    }
+                }
+            }
+        }//end of lint&security stage
+        
+        stage('Install Dependencies') {
+            steps {
+                sh """
+                    cd exam-code/docker/be
+                    pip install -r requirements.txt
+                """
+            }
+        }//end of install dependencies stage
+        
+        stage('Build Docker Image') {
+            steps {
+                sh """
+                    cd exam-code/docker/be
+                    docker build -t $DOCKER_REGISTRY/$REPO_NAME:$IMAGE_TAG .
+                    docker tag $DOCKER_REGISTRY/$REPO_NAME:$IMAGE_TAG $DOCKER_REGISTRY/$REPO_NAME:latest
+                """
+            }
+        }//end of build docker image stage
+        
+        stage('Run Tests in Container') {
+            steps {
+                sh """
+                    docker run --rm $DOCKER_REGISTRY/$REPO_NAME:$BUILD_NUMBER pytest tests/
+                """
+            }
+        }//end of Run Tests in Container stage
+        
+        // stage('Integration Test with Docker Compose') {
+        //     steps {
+        //         sh """
+        //             curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-\$(uname -s)-\$(uname -m)" -o /usr/local/bin/docker-compose
+        //             chmod +x /usr/local/bin/docker-compose
+        //             cd exam-code/docker
+        //             ls -l
+        //             docker-compose down
+        //             docker-compose up -d
+        //             docker-compose logs backend-service 
+        //             sleep 10  # Allow services to start
+        //             curl -f http://localhost:5020 || exit 1  # Adjust for backend if needed
+        //             docker-compose down
+        //         """
+        //     }
+        // }//end of Integration Test with Docker Compose stage
+
+        stage('Push to Docker Hub') {
+            steps {
+                sh """
+                    echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
+                    docker push $DOCKER_REGISTRY/$REPO_NAME:$IMAGE_TAG
+                    docker push $DOCKER_REGISTRY/$REPO_NAME:latest
+                """
+            }
+        }
+    }
+}
