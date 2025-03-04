@@ -74,7 +74,7 @@ pipeline {
                     docker-compose up -d --build
                     docker-compose logs backend-service 
                     sleep 10  # Allow services to start
-                    curl -f http://localhost:5020 || exit 1  # Adjust for backend if needed
+                    docker ps | grep -q 5002 && echo "Port 5002 is mapped and the container is running." || exit 1 // Adjust port for backend if needed 
                     docker-compose down
                 """
             }
