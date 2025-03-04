@@ -60,7 +60,7 @@ pipeline {
                 sh """
                     cd exam-code/docker/be/src
                     ls -l
-                    docker run --rm $DOCKER_REGISTRY/$REPO_NAME:$BUILD_NUMBER pytest tests/
+                    docker run --rm $DOCKER_REGISTRY/$REPO_NAME:$BUILD_NUMBER pytest /app/tests/
                 """
             }
         }//end of Run Tests in Container stage
