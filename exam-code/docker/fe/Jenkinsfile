@@ -12,7 +12,10 @@ pipeline {
         
     }
     stages {
+        stage('Clone Repository') {
+            steps {
+                git branch: 'workshop/argo-jenkins-exam', url: 'https://github.com/gald10102/devopshift-welcome.git'
+            }
+        } //end of clone stage
         
-        
-        
-        }
+    }
