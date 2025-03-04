@@ -1,10 +1,9 @@
 pipeline {
-    /*agent {
+    agent {
         docker {
             image 'python:3.10'
         }
-    } */
-    agent any
+    } 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-creds')
         DOCKER_REGISTRY = 'gald10102'
@@ -41,6 +40,9 @@ pipeline {
             }
         }//end of install dependencies stage
         stage('Build Docker Image') {
+            agent{
+                docker { image 'docker:latest' }
+            }
             steps {
                 sh """
                     cd exam-code/docker/fe
@@ -50,6 +52,9 @@ pipeline {
             }
         }//end of build docker image stage
         stage('Run Tests in Container') {
+              agent{
+                docker { image 'docker:latest' }
+            }
             steps {
                 sh """
                     docker run --rm $DOCKER_REGISTRY/$REPO_NAME:$BUILD_NUMBER pytest tests/
