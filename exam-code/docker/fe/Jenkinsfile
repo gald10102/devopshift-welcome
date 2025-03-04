@@ -67,11 +67,19 @@ pipeline {
                     ls -l
                     docker-compose up -d
                     sleep 10  # Allow services to start
-                    curl -f http://54.191.33.78:5002 || exit 1  # Adjust for backend if needed
+                    curl -f http://localhost:5002 || exit 1  # Adjust for backend if needed
                     docker-compose down
                 """
             }
         }//end of Integration Test with Docker Compose stage
-        
+
+        stage('Push to Docker Hub') {
+            sh """
+                echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
+                docker push $DOCKER_REGISTRY/$REPO_NAME:$IMAGE_TAG
+                docker push <your-dockerhub-username>/your-app:latest
+                docker push $DOCKER_REGISTRY/$REPO_NAME:latest
+            """
+        }
     }
 }
