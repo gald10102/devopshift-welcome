@@ -6,7 +6,7 @@ pipeline {
     }
     environment {
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-creds')
-        DOCKER_REGISTRY = 'yanivomc'
+        DOCKER_REGISTRY = 'gald10102'
         REPO_NAME = 'fe-exam'  // Change to 'be-exam' for backend pipeline
         IMAGE_TAG = "${env.BUILD_NUMBER}"
         
@@ -35,10 +35,18 @@ pipeline {
             steps {
                 sh """
                     cd exam-code/docker/fe
-                    ls -l
                     pip install -r requirements.txt
                 """
             }
-        }
+        }//end of install dependencies stage
+        stage('Build Docker Image') {
+            steps {
+                sh """
+                    cd exam-code/docker/fe
+                    docker build -t $DOCKER_REGISTRY/$REPO_NAME:$IMAGE_TAG .
+                    docker tag $DOCKER_REGISTRY/$REPO_NAME:$IMAGE_TAG $DOCKER_REGISTRY/$REPO_NAME:latest
+                """
+            }
+        }//end of build docker image stage
     }
 }
