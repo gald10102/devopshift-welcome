@@ -23,7 +23,7 @@ pipeline {
                     script {
                         // Install virtualenv if not available
                          echo "Builder"
-                         ls "${DOCKERFILESRC}"
+                         sh "ls "${DOCKERFILESRC}""
                          sh '''
                                 #!/bin/bash
                                 docker build --target build -t yaniv -f $DOCKERFILESRC .
