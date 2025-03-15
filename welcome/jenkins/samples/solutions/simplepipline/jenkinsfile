@@ -23,8 +23,9 @@ pipeline {
                     script {
                         // Install virtualenv if not available
                          echo "Builder"
-                         sh '''#!/bin/bash
-                                
+                         echo ${WORKSPACE}
+                         sh '''
+                                #!/bin/bash
                                 docker build --target build -t yaniv -f $DOCKERFILESRC .
 
                         '''
